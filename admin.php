@@ -24,6 +24,7 @@ $productos = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center mb-4">Lista de Productos</h2>
+				<a href="add-product.php" class="btn btn-sm btn-warning">Agregar un nuevo producto</a>
 
                 <table class="table table-bordered">
                     <thead>
