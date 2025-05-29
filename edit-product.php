@@ -2,6 +2,12 @@
 session_start();
 include 'db_connect.php';
 
+if (!isset($_SESSION['usuario'])) {
+    // Mostrás un mensaje bonito en el diseño o redirigís con un error en querystring
+    header("Location: login_form.php?error=Debes iniciar sesión");
+    exit();
+}
+
 $id = $_GET['id'] ?? null;
 if (!$id) {
     echo "<div class='container mt-5'><div class='alert alert-danger'>ID de producto no especificado.</div></div>";
@@ -29,7 +35,7 @@ if (isset($_POST['update'])) {
     $stmt = $conn->prepare("UPDATE products SET name=?, description=?, price=?, stars=?, isInStock=?, imageName=? WHERE id=?");
     $stmt->bind_param("ssdiisi", $name, $description, $price, $stars, $stock, $image, $id);
     $stmt->execute();
-    header("Location: product_edit.php?id=$id&updated=1");
+    header("Location: admin.php");
     exit();
 }
 
