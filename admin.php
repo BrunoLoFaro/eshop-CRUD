@@ -8,9 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 ?>
-<h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?></h1>
-<a href="logout.php">Cerrar sesión</a>
-
 
 <html lang="en">
 	<head>
