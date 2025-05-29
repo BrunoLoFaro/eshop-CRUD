@@ -1,17 +1,32 @@
 <?php
 session_start();
-include 'db_connect.php'; // conexión a la base de datos si vas a validar contra ella
+include 'db_connect.php';
 
-// Obtener datos del formulario
 $usuario = $_POST['usuario'] ?? '';
 $clave = $_POST['clave'] ?? '';
 
-// Ejemplo simple con valores fijos (cambiar por validación de base de datos si querés)
-if ($usuario === 'admin' && $clave === '1234') {
-    $_SESSION['usuario'] = $usuario;
-    header("Location: admin.php");
-    exit();
-} else {
-    header("Location: login_form.php?error=Credenciales inválidas");
-    exit();
+$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+$stmt->bind_param("s", $usuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+
+    // Para contraseñas en texto plano:
+    if ($user['password'] === $clave) {
+        $_SESSION['usuario'] = $user['username'];
+        header("Location: admin.php");
+        exit();
+    }
+
+    // Para contraseñas hasheadas (futuro):
+    // if (password_verify($clave, $user['password'])) {
+    //     $_SESSION['usuario'] = $user['username'];
+    //     header("Location: admin.php");
+    //     exit();
+    // }
 }
+
+header("Location: login_form.php?error=Credenciales inválidas");
+exit();

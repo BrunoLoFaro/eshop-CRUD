@@ -18,3 +18,14 @@ INSERT INTO products (name, description, price, stars, isInStock) VALUES
 ('Hub USB 4 Puertos', 'Multiplicador de puertos USB 3.0.', 24.99, 3, TRUE),
 ('Parlantes Estéreo', 'Parlantes de escritorio con buena calidad de sonido.', 34.99, 4, TRUE),
 ('Tablet 10"', 'Tablet Android con pantalla HD y batería de larga duración.', 179.90, 4, FALSE);
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users (username, password)
+VALUES ('admin', '1234');
