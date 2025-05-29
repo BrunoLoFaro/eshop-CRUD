@@ -8,9 +8,15 @@
 						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
-					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-					</ul>
+<ul class="header-links pull-right">
+	<?php if (isset($_SESSION['usuario'])): ?>
+		<li><a href="logout.php"><i class="fa fa-user-o"></i> Log Out</a></li>
+	<?php else: ?>
+		<li><a href="login.php"><i class="fa fa-user-o"></i> Log In</a></li>
+	<?php endif; ?>
+</ul>
+
+
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
