@@ -34,7 +34,7 @@ $productos = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
                     <tbody>
                     <?php while ($p = mysqli_fetch_assoc($productos)): ?>
                         <tr>
-                            <td><img src="images/<?php echo htmlspecialchars($p['imageName']); ?>" width="50"></td>
+                            <td><img src="img/<?php echo htmlspecialchars($p['imageName']); ?>" width="50"></td>
                             <td><?php echo htmlspecialchars($p['name']); ?></td>
                             <td>$<?php echo number_format($p['price'], 2); ?></td>
                             <td><?php echo $p['isInStock'] ? 'Sí' : 'No'; ?></td>
