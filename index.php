@@ -1,3 +1,4 @@
+<?php include 'db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -123,44 +124,27 @@
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-3">
 
+<!-- aside Widget -->
+<div class="aside">
+	<h3 class="aside-title">Top selling</h3>
+	<?php
+	$topQuery = "SELECT * FROM products ORDER BY price DESC LIMIT 3";
+	$topResult = mysqli_query($conn, $topQuery);
+	while ($topProduct = mysqli_fetch_assoc($topResult)) { ?>
+		<div class="product-widget">
+			<div class="product-img">
+				<img src="images/<?php echo htmlspecialchars($topProduct['imageName']); ?>" alt="">
+			</div>
+			<div class="product-body">
+				<p class="product-category">Electronics</p>
+				<h3 class="product-name"><a href="#"><?php echo htmlspecialchars($topProduct['name']); ?></a></h3>
+				<h4 class="product-price">$<?php echo number_format($topProduct['price'], 2); ?></h4>
+			</div>
+		</div>
+	<?php } ?>
+</div>
+<!-- /aside Widget -->
 
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product01.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
 					</div>
 					<!-- /ASIDE -->
 
@@ -168,7 +152,6 @@
 					<div id="store" class="col-md-9">
 						<!-- store products -->
 						<?php
-include "db_connect.php";
 
 $query = "SELECT * FROM products";
 $result = mysqli_query($conn, $query);
