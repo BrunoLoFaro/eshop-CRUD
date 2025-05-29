@@ -88,7 +88,6 @@ if (!$product) {
                         <input name="imageName" class="form-control" placeholder="Nombre de imagen (ej: producto.jpg)" value="<?php echo htmlspecialchars($product['imageName']); ?>" required>
                     </div>
                     <button name="update" class="btn btn-primary" type="submit">Actualizar Producto</button>
-                    <button name="delete" class="btn btn-danger" type="submit" onclick="return confirm('¿Seguro que querés eliminar este producto?')">Eliminar Producto</button>
                 </form>
             </div>
         </div>

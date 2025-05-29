@@ -7,65 +7,50 @@ if (!isset($_SESSION['usuario'])) {
     header("Location: login_form.php?error=Debes iniciar sesión");
     exit();
 }
-?>
+$productos = mysqli_query($conn, "SELECT * FROM products ORDER BY id DESC");
+?><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+<body>
+<?php include 'header.php'; ?>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">Lista de Productos</h2>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-		<title>Electro - HTML Ecommerce Template</title>
-
- 		<!-- Google font -->
- 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
- 		<!-- Bootstrap -->
- 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
- 		<!-- Slick -->
- 		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
- 		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
-
- 		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
-
- 		<!-- Font Awesome Icon -->
- 		<link rel="stylesheet" href="css/font-awesome.min.css">
-
- 		<!-- Custom stlylesheet -->
- 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
- 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
- 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
- 		<!--[if lt IE 9]>
- 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
- 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
- 		<![endif]-->
-
-    </head>
-	<?php include 'header.php'; ?>		<!-- NAVIGATION -->
-	<body>
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<div class="container mt-4">
-    <div class="alert alert-success text-center">
-        Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario']); ?> |
-        <a href="logout.php" class="btn btn-sm btn-outline-danger ml-2">Cerrar sesión</a>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php while ($p = mysqli_fetch_assoc($productos)): ?>
+                        <tr>
+                            <td><img src="images/<?php echo htmlspecialchars($p['imageName']); ?>" width="50"></td>
+                            <td><?php echo htmlspecialchars($p['name']); ?></td>
+                            <td>$<?php echo number_format($p['price'], 2); ?></td>
+                            <td><?php echo $p['isInStock'] ? 'Sí' : 'No'; ?></td>
+                            <td>
+                                <a href="edit-product.php?id=<?php echo $p['id']; ?>" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="edit-product.php?id=<?php echo $p['id']; ?>&delete=1" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que querés eliminar este producto?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-				<!-- row -->
-				<div class="row">
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
-		 <?php include 'footer.php'; ?>
-
-	</body>
+<?php include 'footer.php'; ?>
+<script src="js/bootstrap.min.js"></script>
+</body>
 </html>
