@@ -5,9 +5,9 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+						<li><a href="#"><i class="fa fa-phone"></i> +5491143029430</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> uade@email.com</a></li>
+						<li><a href="#"><i class="fa fa-map-marker"></i> Intermédanos 776</a></li>
 					</ul>
 <ul class="header-links pull-right">
 	<?php if (isset($_SESSION['usuario'])): ?>
