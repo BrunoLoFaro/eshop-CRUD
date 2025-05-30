@@ -15,14 +15,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = floatval($_POST['price']);
     $stars = intval($_POST['stars']);
     $stock = isset($_POST['isInStock']) ? 1 : 0;
-    $image = $_POST['imageName'];
+
+    $uploadDir = 'img/';
+    $foto = $_FILES['foto'];
+
+    if ($foto['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $foto['tmp_name'];
+        $fileName = uniqid() . '_' . basename($foto['name']); // nombre único
+        $destPath = $uploadDir . $fileName;
+
+        move_uploaded_file($fileTmpPath, $destPath);
+
+        $image = $fileName;
+    } else {
+        $image = 'default.jpg'; // o null, según tu lógica
+    }
 
     $stmt = $conn->prepare("INSERT INTO products (name, description, price, stars, isInStock, imageName) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssdiis", $name, $description, $price, $stars, $stock, $image);
     $stmt->execute();
+
     header("Location: add-product.php?success=1");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="alert alert-success text-center">Producto agregado con éxito.</div>
                 <?php endif; ?>
 
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input name="name" class="form-control" placeholder="Nombre" required>
                     </div>
@@ -63,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label><input type="checkbox" name="isInStock"> En Stock</label>
                     </div>
                     <div class="form-group">
-                        <input name="imageName" class="form-control" placeholder="Nombre de imagen (ej: producto.jpg)" required>
+                        <label><input type="file" id="foto" name="foto" REQUIRED>Foto</label>
                     </div>
                     <button class="btn btn-primary" type="submit">Agregar Producto</button>
                 </form>

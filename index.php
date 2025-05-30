@@ -123,7 +123,7 @@ $result = mysqli_query($conn, $query);
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
+						<!-- <div class="store-filter clearfix">
 							<span class="store-qty">Showing 20-100 products</span>
 							<ul class="store-pagination">
 								<li class="active">1</li>
@@ -132,7 +132,7 @@ $result = mysqli_query($conn, $query);
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
 							</ul>
-						</div>
+						</div> -->
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
@@ -154,12 +154,12 @@ $result = mysqli_query($conn, $query);
 					<div class="row">
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<h3 class="footer-title">Sobre nosotros</h3>
+								<p>Somos la empresa de venta de electrónicos más grande America Latina.</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+									<li><a href="#"><i class="fa fa-map-marker"></i>Intermédanos 776</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i>+5491195518432</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>electro@email.com</a></li>
 								</ul>
 							</div>
 						</div>
