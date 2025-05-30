@@ -1,7 +1,7 @@
 <?php include 'db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-	
+
 <?php include 'header.php'; ?>
 		
 		<!-- SECTION -->
@@ -15,7 +15,7 @@
 
 <!-- aside Widget -->
 <div class="aside">
-	<h3 class="aside-title">Top selling</h3>
+	<h3 class="aside-title">Mas vendidos</h3>
 	<?php
 	$topQuery = "SELECT * FROM products ORDER BY price DESC LIMIT 3";
 	$topResult = mysqli_query($conn, $topQuery);
@@ -25,7 +25,7 @@
 				<img src="images/<?php echo htmlspecialchars($topProduct['imageName']); ?>" alt="">
 			</div>
 			<div class="product-body">
-				<p class="product-category">Electronics</p>
+				<p class="product-category">Electronicos</p>
 				<h3 class="product-name"><a href="#"><?php echo htmlspecialchars($topProduct['name']); ?></a></h3>
 				<h4 class="product-price">$<?php echo number_format($topProduct['price'], 2); ?></h4>
 			</div>
@@ -55,9 +55,9 @@ $result = mysqli_query($conn, $query);
 						<img src="img/<?php echo htmlspecialchars($product['imageName']); ?>" alt="">
 					<div class="product-label">
 						<?php if ($product['isInStock']) { ?>
-							<span class="new">NEW</span>
+							<span class="new">HAY STOCK</span>
 						<?php } else { ?>
-							<span class="sale">OUT</span>
+							<span class="sale">SIN STOCK</span>
 						<?php } ?>
 					</div>
 				</div>
