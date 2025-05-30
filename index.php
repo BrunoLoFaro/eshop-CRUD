@@ -22,7 +22,7 @@
 	while ($topProduct = mysqli_fetch_assoc($topResult)) { ?>
 		<div class="product-widget">
 			<div class="product-img">
-				<img src="images/<?php echo htmlspecialchars($topProduct['imageName']); ?>" alt="">
+				<img src="img/<?php echo htmlspecialchars($topProduct['imageName']); ?>" alt="">
 			</div>
 			<div class="product-body">
 				<p class="product-category">Electronicos</p>
