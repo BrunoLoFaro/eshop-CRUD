@@ -1,4 +1,5 @@
-<!-- HEADER -->
+<?php include 'head.php'; ?>
+<body>
 		<header>
 			<!-- TOP HEADER -->
 			<div id="top-header">
