@@ -30,13 +30,43 @@ if (isset($_POST['update'])) {
     $price = floatval($_POST['price']);
     $stars = intval($_POST['stars']);
     $stock = isset($_POST['isInStock']) ? 1 : 0;
-    $image = $_POST['imageName'];
+    $uploadDir = 'img/';
+    $foto = $_FILES['foto'] ?? null;
 
-    $stmt = $conn->prepare("UPDATE products SET name=?, description=?, price=?, stars=?, isInStock=?, imageName=? WHERE id=?");
-    $stmt->bind_param("ssdiisi", $name, $description, $price, $stars, $stock, $image, $id);
+    // Asignación base
+    $image = null;
+    $imageSql = '';
+    $types = "ssdii"; // para los 5 primeros campos
+    $params = [$name, $description, $price, $stars, $stock];
+
+    // Si hay imagen nueva, procesamos y agregamos el campo a la query
+    if ($foto && $foto['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $foto['tmp_name'];
+        $fileName = uniqid() . '_' . basename($foto['name']);
+        $destPath = $uploadDir . $fileName;
+
+        move_uploaded_file($fileTmpPath, $destPath);
+
+        $imageSql = ', imageName=?';
+        $types .= 's';
+        $params[] = $fileName;
+    }
+
+    // id siempre al final
+    $types .= 'i';
+    $params[] = $id;
+
+    // Preparar la query dinámica
+    $sql = "UPDATE products SET name=?, description=?, price=?, stars=?, isInStock=?" . $imageSql . " WHERE id=?";
+    $stmt = $conn->prepare($sql);
+
+    // Hacer el bind dinámico
+    $stmt->bind_param($types, ...$params);
     $stmt->execute();
-    header("Location: admin.php");
+
+    header("Location: admin.php?updated=1");
     exit();
+
 }
 
 // Obtener producto
@@ -68,7 +98,7 @@ if (!$product) {
                     <div class="alert alert-success text-center">Producto actualizado con éxito.</div>
                 <?php endif; ?>
 
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input name="name" class="form-control" placeholder="Nombre" value="<?php echo htmlspecialchars($product['name']); ?>" required>
                     </div>
@@ -85,7 +115,7 @@ if (!$product) {
                         <label><input type="checkbox" name="isInStock" <?php echo $product['isInStock'] ? 'checked' : ''; ?>> En Stock</label>
                     </div>
                     <div class="form-group">
-                        <input name="imageName" class="form-control" placeholder="Nombre de imagen (ej: producto.jpg)" value="<?php echo htmlspecialchars($product['imageName']); ?>" required>
+                        <label><input type="file" name="foto"> Nueva imagen (opcional)</label>
                     </div>
                     <button name="update" class="btn btn-primary" type="submit">Actualizar Producto</button>
                 </form>
